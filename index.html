@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metaphor - Grade 4</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Trebuchet MS", Arial, sans-serif;
+        background: linear-gradient(135deg, #eef7ff, #f8f1ff);
+        color: #24324a;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 30px;
+    }
+
+    .slide {
+        min-height: 650px;
+        background: white;
+        border-radius: 30px;
+        padding: 45px;
+        margin-bottom: 35px;
+        box-shadow: 0 12px 35px rgba(65, 80, 120, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .part {
+        display: inline-block;
+        background: #6c63ff;
+        color: white;
+        padding: 8px 18px;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    h1 {
+        font-size: 58px;
+        margin: 5px 0 15px;
+        color: #4c46b8;
+    }
+
+    h2 {
+        font-size: 40px;
+        color: #4c46b8;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 28px;
+        margin: 10px 0;
+    }
+
+    p {
+        font-size: 24px;
+        line-height: 1.5;
+    }
+
+    .hero {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .hero .emoji {
+        font-size: 100px;
+        margin: 20px;
+    }
+
+    .definition {
+        background: #f0efff;
+        border-left: 8px solid #6c63ff;
+        padding: 25px;
+        border-radius: 20px;
+        margin: 25px 0;
+    }
+
+    .definition strong {
+        color: #4c46b8;
+    }
+
+    .example-box {
+        background: #f7fbff;
+        border-radius: 25px;
+        padding: 30px;
+        margin-top: 25px;
+        text-align: center;
+        border: 2px solid #dcecff;
+    }
+
+    .big-sentence {
+        font-size: 38px;
+        font-weight: bold;
+        color: #e05a8d;
+        margin: 20px 0;
+    }
+
+    .question {
+        background: #fff5d9;
+        padding: 20px;
+        border-radius: 18px;
+        font-size: 25px;
+        margin: 20px 0;
+    }
+
+    button {
+        border: none;
+        background: #6c63ff;
+        color: white;
+        padding: 14px 25px;
+        border-radius: 15px;
+        font-size: 19px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+        margin: 8px;
+    }
+
+    button:hover {
+        transform: scale(1.04);
+        background: #554ed0;
+    }
+
+    .answer {
+        display: none;
+        background: #e9fff3;
+        padding: 20px;
+        border-radius: 18px;
+        margin-top: 15px;
+        font-size: 23px;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        margin-top: 25px;
+    }
+
+    .card {
+        background: #fafaff;
+        border-radius: 25px;
+        padding: 25px;
+        text-align: center;
+        border: 2px solid #e6e4ff;
+    }
+
+    .card .emoji {
+        font-size: 65px;
+    }
+
+    .card h3 {
+        color: #4c46b8;
+    }
+
+    .quality {
+        display: inline-block;
+        background: #ffe4ef;
+        padding: 8px 15px;
+        border-radius: 15px;
+        font-weight: bold;
+        margin-top: 8px;
+    }
+
+    .formula {
+        text-align: center;
+        background: #24324a;
+        color: white;
+        border-radius: 22px;
+        padding: 25px;
+        font-size: 30px;
+        font-weight: bold;
+        margin: 25px 0;
+    }
+
+    .choice-container {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .choice {
+        display: inline-block;
+        background: white;
+        border: 3px solid #dddafa;
+        border-radius: 20px;
+        padding: 18px 25px;
+        margin: 10px;
+        font-size: 22px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .choice:hover {
+        transform: translateY(-4px);
+        border-color: #6c63ff;
+    }
+
+    .feedback {
+        margin-top: 20px;
+        font-size: 25px;
+        font-weight: bold;
+        min-height: 35px;
+    }
+
+    .production {
+        background: linear-gradient(135deg, #fff0f7, #eef0ff);
+        text-align: center;
+    }
+
+    .prompt {
+        font-size: 70px;
+        margin: 20px;
+    }
+
+    .input-area {
+        width: 80%;
+        max-width: 700px;
+        padding: 18px;
+        border-radius: 15px;
+        border: 2px solid #d8d5f5;
+        font-size: 22px;
+        margin: 15px;
+    }
+
+    .footer {
+        text-align: center;
+        color: #68738a;
+        font-size: 17px;
+        margin: 20px;
+    }
+
+    @media(max-width: 800px) {
+        .cards {
+            grid-template-columns: 1fr;
+        }
+
+        h1 {
+            font-size: 42px;
+        }
+
+        h2 {
+            font-size: 32px;
+        }
+
+        .slide {
+            padding: 25px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- PART 1 -->
+    <section class="slide hero">
+        <div class="part">PART 1</div>
+
+        <div class="emoji">💡</div>
+
+        <h1>METAPHOR</h1>
+
+        <p>
+            Let's discover what a metaphor is!
+        </p>
+
+        <button onclick="scrollToPart('part2')">
+            Let's Discover →
+        </button>
+    </section>
+
+
+    <!-- PART 2 -->
+    <section class="slide" id="part2">
+
+        <div class="part">PART 2 · DISCOVER</div>
+
+        <h2>Look at the picture!</h2>
+
+        <div class="example-box">
+
+            <div style="font-size:90px;">👦 🦁</div>
+
+            <div class="big-sentence">
+                He is a lion.
+            </div>
+
+            <div class="question">
+                🤔 Is he really a lion?
+            </div>
+
+            <button onclick="showAnswer('answer1')">
+                Think & Reveal
+            </button>
+
+            <div class="answer" id="answer1">
+                ❌ No! He is a boy.<br><br>
+                🦁 The lion shows that he is <strong>very brave</strong>.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PART 3 -->
+    <section class="slide">
+
+        <div class="part">PART 3 · WHAT DOES IT MEAN?</div>
+
+        <h2>A metaphor does NOT mean it is real.</h2>
+
+        <div class="definition">
+
+            <p>
+                A <strong>metaphor</strong> says one thing
+                <strong>IS</strong> another thing to show a special quality.
+            </p>
+
+            <p>
+                We don't mean they are really the same.
+            </p>
+
+        </div>
+
+        <div class="formula">
+            THING A + IS + THING B → QUALITY
+        </div>
+
+        <div class="example-box">
+
+            <div class="big-sentence">
+                Ali is a lion.
+            </div>
+
+            <p>Ali → lion → brave</p>
+
+            <span class="quality">
+                He is very brave.
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- PART 4 -->
+    <section class="slide">
+
+        <div class="part">PART 4 · MORE EXAMPLES</div>
+
+        <h2>Let's discover more metaphors!</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="emoji">🐝</div>
+
+                <h3>She is a bee.</h3>
+
+                <button onclick="showAnswer('bee')">
+                    What does it mean?
+                </button>
+
+                <div class="answer" id="bee">
+                    She is <strong>very busy</strong>.
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="emoji">🚀</div>
+
+                <h3>My brother is a rocket.</h3>
+
+                <button onclick="showAnswer('rocket')">
+                    What does it mean?
+                </button>
+
+                <div class="answer" id="rocket">
+                    My brother is <strong>very fast</strong>.
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="emoji">👼</div>
+
+                <h3>The baby is an angel.</h3>
+
+                <button onclick="showAnswer('angel')">
+                    What does it mean?
+                </button>
+
+                <div class="answer" id="angel">
+                    The baby is <strong>very sweet and good</strong>.
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="emoji">⭐</div>
+
+                <h3>My teacher is a star.</h3>
+
+                <button onclick="showAnswer('star')">
+                    What does it mean?
+                </button>
+
+                <div class="answer" id="star">
+                    My teacher is <strong>excellent</strong>.
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="emoji">🪶</div>
+
+                <h3>My bag is a feather.</h3>
+
+                <button onclick="showAnswer('feather')">
+                    What does it mean?
+                </button>
+
+                <div class="answer" id="feather">
+                    My bag is <strong>very light</strong>.
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="emoji">🍅</div>
+
+                <h3>His face is a tomato.</h3>
+
+                <button onclick="showAnswer('tomato')">
+                    What does it mean?
+                </button>
+
+                <div class="answer" id="tomato">
+                    His face is <strong>very red</strong>.
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PART 5 -->
+    <section class="slide">
+
+        <div class="part">PART 5 · REMEMBER</div>
+
+        <h2>Metaphor or not?</h2>
+
+        <div class="example-box">
+
+            <p class="big-sentence">
+                He is a lion.
+            </p>
+
+            <p>
+                ❓ Is he really a lion?
+            </p>
+
+            <p>
+                ❌ No!
+            </p>
+
+            <p>
+                🦁 Lion = <strong>brave</strong>
+            </p>
+
+            <div class="formula">
+                IS + COMPARISON + QUALITY
+            </div>
+
+        </div>
+
+        <div class="definition">
+
+            <h3>Remember!</h3>
+
+            <p>
+                A metaphor says one thing <strong>IS</strong> another thing
+                to show a quality.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- PART 6 -->
+    <section class="slide">
+
+        <div class="part">PART 6 · YOUR TURN</div>
+
+        <h2>Can you make a metaphor?</h2>
+
+        <p style="text-align:center;">
+            Choose the quality and make a sentence.
+        </p>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="prompt">🦁</div>
+
+                <h3>LION</h3>
+
+                <div class="choice"
+                     onclick="checkChoice(this,'brave','feedback1')">
+                    brave
+                </div>
+
+                <div class="choice"
+                     onclick="checkChoice(this,'cold','feedback1')">
+                    cold
+                </div>
+
+                <div class="choice"
+                     onclick="checkChoice(this,'small','feedback1')">
+                    small
+                </div>
+
+                <div class="feedback" id="feedback1"></div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="prompt">🐝</div>
+
+                <h3>BEE</h3>
+
+                <div class="choice"
+                     onclick="checkChoice(this,'busy','feedback2')">
+                    busy
+                </div>
+
+                <div class="choice"
+                     onclick="checkChoice(this,'slow','feedback2')">
+                    slow
+                </div>
+
+                <div class="choice"
+                     onclick="checkChoice(this,'cold','feedback2')">
+                    cold
+                </div>
+
+                <div class="feedback" id="feedback2"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PART 7 -->
+    <section class="slide production">
+
+        <div class="part">PART 7 · CREATE!</div>
+
+        <h2>Your Turn!</h2>
+
+        <div class="prompt">🦊</div>
+
+        <h3>What quality can a fox show?</h3>
+
+        <p>
+            Choose a quality and make your own metaphor.
+        </p>
+
+        <div class="choice-container">
+
+            <div class="choice"
+                 onclick="showSentence('clever')">
+                clever
+            </div>
+
+            <div class="choice"
+                 onclick="showSentence('fast')">
+                fast
+            </div>
+
+            <div class="choice"
+                 onclick="showSentence('strong')">
+                strong
+            </div>
+
+        </div>
+
+        <div class="feedback" id="finalFeedback"></div>
+
+        <input
+            class="input-area"
+            type="text"
+            placeholder="Write your own metaphor here..."
+        >
+
+        <p>
+            ✨ Remember: <strong>_____ is a _____.</strong>
+        </p>
+
+    </section>
+
+
+    <div class="footer">
+        Grade 4 · Language Arts · Metaphor
+    </div>
+
+</div>
+
+
+<script>
+
+function showAnswer(id) {
+    const element = document.getElementById(id);
+
+    if (element.style.display === "block") {
+        element.style.display = "none";
+    } else {
+        element.style.display = "block";
+    }
+}
+
+
+function scrollToPart(id) {
+    document.getElementById(id).scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+
+function checkChoice(element, correct, feedbackId) {
+
+    const feedback = document.getElementById(feedbackId);
+
+    if (element.innerText.trim().toLowerCase() === correct) {
+
+        feedback.innerHTML =
+            "✅ Great! Now make the metaphor:<br><br>" +
+            "<strong>He is a lion.</strong>";
+
+        feedback.style.color = "#218838";
+
+    } else {
+
+        feedback.innerHTML =
+            "🤔 Think again! What quality do we usually connect with a lion?";
+
+        feedback.style.color = "#d97706";
+    }
+}
+
+
+function showSentence(quality) {
+
+    const feedback = document.getElementById("finalFeedback");
+
+    if (quality === "clever") {
+
+        feedback.innerHTML =
+            "✨ Example: <strong>He is a fox.</strong><br>" +
+            "It means: He is very clever.";
+
+    } else if (quality === "fast") {
+
+        feedback.innerHTML =
+            "✨ Example: <strong>He is a fox.</strong><br>" +
+            "It means: He is very fast.";
+
+    } else {
+
+        feedback.innerHTML =
+            "✨ Example: <strong>He is a fox.</strong><br>" +
+            "It means: He is very strong.";
+    }
+}
+
+</script>
+
+</body>
+</html>
